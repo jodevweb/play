@@ -4,10 +4,7 @@ $(document).ready(function () {
             event.preventDefault();
             var number = $("#number_" + index);
             var user = $("#user");
-<<<<<<< HEAD
             var ai = $("#bot");
-=======
->>>>>>> 4d70fb631836e09249a3a8fc711ebf46df946409
             var getNumbers = '<div id="numbers">\n' +
                 '        <input type="submit" id="number_0" value="1">\n' +
                 '        <input type="submit" id="number_1" value="2">\n' +
@@ -23,12 +20,8 @@ $(document).ready(function () {
 
             if (user.html().length > 0) {
                 var data = {
-<<<<<<< HEAD
                     'numbers': user.html() + ' ' + number.val(),
                     'role': 'user'
-=======
-                    'numbers': $("#user").html() + ' ' + number.val()
->>>>>>> 4d70fb631836e09249a3a8fc711ebf46df946409
                 };
 
                 $.ajax({
@@ -49,8 +42,6 @@ $(document).ready(function () {
 
                         } else {
                             user.html(user.html() + ' ' + number.val());
-<<<<<<< HEAD
-
                             var data = {
                                 'numbers': user.html() + ' ' + number.val(),
                                 'role': 'ai'
@@ -63,15 +54,12 @@ $(document).ready(function () {
                                 data: data,
                                 success: function(responseAI) {
                                     var obj = jQuery.parseJSON(responseAI);
-                                    ai.html(obj.numbers);
+                                    ai.html(ai.html() + ' ' + obj.numbers);
                                 },
                                 error: function() {
                                     ai.html("Désolé, aucun résultat trouvé.");
                                 }
                             });
-
-=======
->>>>>>> 4d70fb631836e09249a3a8fc711ebf46df946409
                         }
                     },
                     error: function() {
@@ -80,12 +68,8 @@ $(document).ready(function () {
                 });
             } else {
                 var data = {
-<<<<<<< HEAD
                     'numbers': number.val(),
                     'role': 'user'
-=======
-                    'numbers': number.val()
->>>>>>> 4d70fb631836e09249a3a8fc711ebf46df946409
                 };
 
                 $.ajax({
@@ -95,7 +79,6 @@ $(document).ready(function () {
                     data: data,
                     success: function(response) {
                         user.html(number.val());
-<<<<<<< HEAD
 
                         var data = {
                             'numbers': number.val(),
@@ -119,11 +102,6 @@ $(document).ready(function () {
                     },
                     error: function() {
                         bot.html("Désolé, aucun résultat trouvé.");
-=======
-                    },
-                    error: function() {
-                        user.html("Désolé, aucun résultat trouvé.");
->>>>>>> 4d70fb631836e09249a3a8fc711ebf46df946409
                     }
                 });
             }
