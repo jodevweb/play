@@ -27,15 +27,29 @@ class CoreController extends Controller
     public function ai($array) {
         $win = false;
         foreach ($array as $key => $value) {
-            if (array_key_exists($key + 1, $array) && array_key_exists($key + 2, $array)) {
-                if ($value == $array[$key + 1] && $value == $array[$key + 2]) {
-                    $win = $value;
+            $rand = rand(0, 1);
+            if ($rand == 0) {
+                if (array_key_exists($key + 1, $array) && array_key_exists($key + 2, $array)) {
+                    if ($value == $array[$key + 1] && $value == $array[$key + 2]) {
+                        $win = $value;
+                    }
                 }
+            } elseif ($rand == 1) {
+                if (array_key_exists($key + 1, $array)) {
+                    if ($value == $array[$key + 1]) {
+                        $win = $value;
+                    }
+                } 
             }
         }
 
         if ($win !== false) {
-            return $win;
+            $rand = rand(0, 1);
+            if ($rand == 0) {
+                return $win;
+            } elseif ($rand == 1) {
+                return rand(1, 10);
+            }
         } else {
             return rand(1, 10);
         }
