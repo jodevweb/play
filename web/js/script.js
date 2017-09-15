@@ -19,6 +19,11 @@ $(document).ready(function () {
                         var obj = jQuery.parseJSON(response);
                         if (obj.winner !== false) {
                             user.html('Winner : ' + obj.winner + ' ! GG');
+
+                            setTimeout(function() {
+                                user.html('');
+                            }, 5000);
+
                         } else {
                             user.html(user.html() + ' ' + number.val());
                         }
