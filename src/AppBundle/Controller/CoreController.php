@@ -54,7 +54,7 @@ class CoreController extends Controller
                 $win = false;
 
                 if ($winner !== false) {
-                    $win = $this->array_count_values_follow($numbers);
+                    $win = $winner;
                 }
 
                 return new Response(json_encode(array(
@@ -63,8 +63,22 @@ class CoreController extends Controller
                 )));
             } elseif ($request->request->get('role') == 'ai') {
                 $numbers = explode(' ', $request->request->get('numbers'));
+                $number_ai = $this->ai($numbers);
+                $win = false;
+
+                if ($request->request->get('numbers_ai')) {
+                    $numbers_ai = explode(' ', $number_ai . ' ' . $request->request->get('numbers_ai'));
+
+                    $winner = $this->array_count_values_follow($numbers_ai);
+
+                    if ($winner !== false) {
+                        $win = $winner;
+                    }
+                }
+
                 return new Response(json_encode(array(
-                    'numbers' => $this->ai($numbers),
+                    'winner' => $win,
+                    'numbers' => $number_ai,
                 )));
             }
         }
