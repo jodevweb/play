@@ -53,6 +53,9 @@ $(document).ready(function () {
                                             location.reload();
                                         }, 5000);
                                     } else {
+                                        if (obj.extract !== false) {
+                                            user.html('');
+                                        }
                                         ai.html(ai.html() + ' ' + obj.numbers);
                                     }
                                 },
@@ -92,6 +95,9 @@ $(document).ready(function () {
                             data: data,
                             success: function(responseAI) {
                                 var obj = jQuery.parseJSON(responseAI);
+                                if (obj.extract !== false) {
+                                    user.html('');
+                                }
                                 ai.html(obj.numbers);
                             },
                             error: function() {

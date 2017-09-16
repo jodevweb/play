@@ -27,14 +27,14 @@ class CoreController extends Controller
     public function ai($array) {
         $win = false;
         foreach ($array as $key => $value) {
-            $rand = rand(0, 1);
-            if ($rand == 0) {
+            $rand = rand();
+            if (($rand % 2) == 0) {
                 if (array_key_exists($key + 1, $array) && array_key_exists($key + 2, $array)) {
                     if ($value == $array[$key + 1] && $value == $array[$key + 2]) {
                         $win = $value;
                     }
                 }
-            } elseif ($rand == 1) {
+            } elseif (($rand % 2) != 0) {
                 if (array_key_exists($key + 1, $array)) {
                     if ($value == $array[$key + 1]) {
                         $win = $value;
@@ -44,14 +44,14 @@ class CoreController extends Controller
         }
 
         if ($win !== false) {
-            $rand = rand(0, 1);
-            if ($rand == 0) {
-                return $win;
-            } elseif ($rand == 1) {
-                return rand(1, 10);
+            $rand = rand();
+            if (($rand % 2) == 0) {
+                return array('winner' => true, 'number' => $win);
+            } elseif (($rand % 2) != 0) {
+                return array('winner' => false, 'number' => rand(1, 10));
             }
         } else {
-            return rand(1, 10);
+            return array('winner' => false, 'number' => rand(1, 10));
         }
     }
 
@@ -78,10 +78,11 @@ class CoreController extends Controller
             } elseif ($request->request->get('role') == 'ai') {
                 $numbers = explode(' ', $request->request->get('numbers'));
                 $number_ai = $this->ai($numbers);
+                $extract = false;
                 $win = false;
 
                 if ($request->request->get('numbers_ai')) {
-                    $numbers_ai = explode(' ', $number_ai . ' ' . $request->request->get('numbers_ai'));
+                    $numbers_ai = explode(' ', $number_ai['number'] . ' ' . $request->request->get('numbers_ai'));
 
                     $winner = $this->array_count_values_follow($numbers_ai);
 
@@ -90,9 +91,14 @@ class CoreController extends Controller
                     }
                 }
 
+                if ($number_ai['winner'] == true) {
+                    $extract = $number_ai['number'];
+                }
+
                 return new Response(json_encode(array(
                     'winner' => $win,
-                    'numbers' => $number_ai,
+                    'numbers' => $number_ai['number'],
+                    'extract' => $extract,
                 )));
             }
         }
