@@ -28,7 +28,7 @@ class CoreController extends Controller
         $win = false;
         foreach ($array as $key => $value) {
             $rand = rand();
-            if (($rand % 2) == 0) {
+            if (($rand % 2) == 0 && $rand < 500) {
                 if (array_key_exists($key + 1, $array) && array_key_exists($key + 2, $array)) {
                     if ($value == $array[$key + 1] && $value == $array[$key + 2]) {
                         $win = $value;

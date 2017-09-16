@@ -20,9 +20,9 @@ $(document).ready(function () {
                     success: function(response) {
                         var obj = jQuery.parseJSON(response);
                         if (obj.winner !== false) {
-                            user.html('Winner User : ' + obj.winner + ' ! GG');
+                            user.html('Winner with ' + obj.winner + ' ! GG');
                             $("#numbers > *").remove();
-                            ai.html('');
+                            ai.html('Loose');
 
                             setTimeout(function() {
                                 location.reload();
@@ -45,9 +45,9 @@ $(document).ready(function () {
                                     var obj = jQuery.parseJSON(responseAI);
 
                                     if (obj.winner !== false) {
-                                        ai.html('Winner AI : ' + obj.winner + ' ! GG');
+                                        ai.html('Winner with ' + obj.winner + ' ! GG');
                                         $("#numbers > *").remove();
-                                        user.html('');
+                                        user.html('Loose');
 
                                         setTimeout(function() {
                                             location.reload();
