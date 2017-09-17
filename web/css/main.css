@@ -16,3 +16,6 @@
 #bot:before {
 	content: 'AI: ';
 }
+#numbers .disabled {
+	display: none;
+}
